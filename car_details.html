@@ -1,0 +1,656 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>
+    body {
+        background: #f8fafc !important; 
+        color: #1e293b !important;
+    }
+    
+    .detail-hero {
+        position: relative;
+        padding: 6rem 0 3rem;
+        background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+        border-radius: 0 0 40px 40px;
+        margin: -2rem -20px 3rem; 
+        overflow: hidden;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .detail-hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at left, rgba(165, 243, 252, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .car-title-brand {
+        color: var(--primary);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .car-title-name {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        color: #0f172a;
+    }
+
+    .car-pricing {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 1.5rem;
+    }
+
+    .car-hero-img-container {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 350px;
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(15, 23, 42, 0.4);
+        color: white;
+        border: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 10;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-btn:hover {
+        background: var(--primary);
+        color: #0f172a;
+    }
+
+    .prev-btn { left: 15px; }
+    .next-btn { right: 15px; }
+
+    .image-indicators {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+    }
+
+    .indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(15, 23, 42, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .indicator.active {
+        background: var(--primary);
+        width: 24px;
+        border-radius: 4px;
+    }
+
+    .car-hero-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+        transition: opacity 0.3s ease, transform 0.5s ease;
+    }
+    
+    .car-hero-img:hover {
+        transform: scale(1.08);
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 20px 6rem;
+    }
+
+    .glass-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: #0f172a;
+    }
+    .section-title::after {
+        content: '';
+        height: 2px;
+        flex: 1;
+        background: linear-gradient(90deg, rgba(165, 243, 252, 0.2), transparent);
+    }
+
+    .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .spec-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .spec-label {
+        color: #64748b;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .spec-value {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    .emi-calc {
+        text-align: center;
+    }
+
+    .emi-amount {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin: 1rem 0;
+    }
+
+    .btn-book-large {
+        display: inline-block;
+        width: 100%;
+        padding: 1.2rem;
+        font-size: 1.1rem;
+        text-align: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), #22d3ee);
+        color: #0f172a;
+        text-decoration: none;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        box-shadow: 0 10px 20px rgba(165, 243, 252, 0.2);
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-book-large:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(165, 243, 252, 0.4);
+    }
+    
+    .rating-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fef3c7;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #b45309;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .star { color: #f59e0b; font-size: 1.2rem; }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+        .car-title-name {
+            font-size: 3rem;
+        }
+        .specs-grid {
+            grid-template-columns: 1fr;
+        }
+        .btn-book-large {
+            max-width: 100% !important;
+        }
+        .variant-action {
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+    }
+
+    /* Variants Section */
+    .variants-container {
+        grid-column: 1 / -1;
+    }
+    .variants-table-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 2px solid #e2e8f0;
+        font-weight: 700;
+        color: #64748b;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+    .variant-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #f1f5f9;
+        transition: background 0.2s;
+    }
+    .variant-row:hover {
+        background: rgba(165, 243, 252, 0.05); /* Slight cyan tint on hover for variants */
+    }
+    .variant-row:last-child {
+        border-bottom: none;
+    }
+    .variant-info {
+        flex: 2;
+    }
+    .variant-name {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 0.2rem;
+    }
+    .variant-sub {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        margin-bottom: 0.5rem;
+    }
+    .variant-specs {
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+    .variant-prices {
+        flex: 1.5;
+        display: flex;
+        flex-direction: column;
+    }
+    .variant-price {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #1e293b;
+    }
+
+    .variant-action {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .btn-outline {
+        border: 2px solid var(--primary);
+        color: #0f172a;
+        background: transparent;
+        padding: 0.6rem 1.4rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+        background: var(--primary);
+    }
+</style>
+
+<!-- Hero Section (Split Layout) -->
+<div class="detail-hero">
+    <div class="hero-grid">
+        <!-- Left: Car Image Carousel -->
+        <div class="car-hero-img-container" id="carouselContainer">
+            <img src="{{ car.image_url }}" alt="{{ car.name }}" class="car-hero-img" id="mainCarImage">
+            
+            <button class="carousel-btn prev-btn" id="prevBtn" onclick="changeImage(-1)">&#10094;</button>
+            <button class="carousel-btn next-btn" id="nextBtn" onclick="changeImage(1)">&#10095;</button>
+            
+            <div class="image-indicators" id="indicators">
+                <!-- Javascript will populate dots -->
+            </div>
+        </div>
+        
+        <!-- Right: Overview & Pricing -->
+        <div>
+            <div class="rating-badge">
+                <span class="star">★</span> 4.8 | 120+ Reviews
+            </div>
+            <div class="car-title-brand">{{ car.brand }}</div>
+            <div class="car-title-name">{{ car.name }}</div>
+            <div class="car-pricing">₹ {{ "{:,.2f}".format(car.price / 100000) }} Lakh <span style="font-size:1rem; color:#64748b; font-weight:500;">Ex-Showroom</span></div>
+            
+            <p style="font-size: 1.15rem; line-height: 1.8; color: #475569; margin-bottom: 2.5rem;">
+                {{ car.description }} Discover the sheer driving pleasure and unmatched efficiency of the {{ car.brand }} {{ car.name }}. Designed for the future, tailored for your journey. Experience premium electric mobility today.
+            </p>
+            
+            <a href="{{ url_for('book_car', car_id=car.car_id) }}" class="btn-book-large" style="max-width: 280px;">Reserve Now</a>
+        </div>
+    </div>
+</div>
+
+<div class="content-grid">
+    <!-- Left Column: Specs -->
+    <div style="display: flex; flex-direction: column; gap: 3rem;">
+        
+        <!-- Key Specifications -->
+        <div class="glass-card">
+            <h3 class="section-title">Key Specifications & Features</h3>
+            
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="spec-label">Range (ARAI Claimed)</span>
+                    <span class="spec-value">{{ car.range_km }} - {{ car.range_km + 45 }} km</span>
+                </div>
+                
+                <div class="spec-item">
+                    <span class="spec-label">Battery Capacity</span>
+                    <span class="spec-value">{% if car.get('battery_capacity') %}{{ car.battery_capacity }}{% else %}{{ (car.range_km / 7.5) | round | int }} - {{ (car.range_km / 6.5) | round | int }} kWh{% endif %}</span>
+                </div>
+
+                <div class="spec-item">
+                    <span class="spec-label">Power (Max Motor)</span>
+                    <span class="spec-value">{% if car.get('power_bhp') %}{{ car.power_bhp }} bhp{% else %}{{ (car.price / 15000) | round | int }} - {{ (car.price / 12000) | round | int }} bhp{% endif %}</span>
+                </div>
+
+                <div class="spec-item">
+                    <span class="spec-label">Charging Time (DC Fast)</span>
+                    <span class="spec-value">{% if car.get('charging_dc') %}{{ car.charging_dc }}{% else %}45 Min (10-80%){% endif %}</span>
+                </div>
+
+                <div class="spec-item">
+                    <span class="spec-label">Charging Time (AC Wall)</span>
+                    <span class="spec-value">{% if car.get('charging_ac') %}{{ car.charging_ac }}{% else %}{{ (car.range_km / 50) | round | int }}.0 H (10-100%){% endif %}</span>
+                </div>
+
+                <div class="spec-item">
+                    <span class="spec-label">Boot Space</span>
+                    <span class="spec-value">{% if car.get('boot_space') %}{{ car.boot_space }} Litres{% else %}350 Litres{% endif %}</span>
+                </div>
+                
+                <div class="spec-item" style="grid-column: 1 / -1; border-bottom:none;">
+                    <span class="spec-label">Global NCAP Safety Rating</span>
+                    <span class="spec-value" style="display: flex; align-items: center; gap: 8px;">
+                        {% if car.get('safety_rating') %}
+                        {% for _ in range(car.safety_rating|int) %}<span class="star">★</span>{% endfor %} {{ car.safety_rating }} Star
+                        {% else %}
+                        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span> 5 Star
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Right Column: EMI -->
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <div class="glass-card emi-calc">
+            <div style="text-align: left; margin-bottom: 1rem;">
+                <h3 style="font-size: 1.4rem; font-weight: 700;">Calculate EMI</h3>
+                <p style="color: #64748b; font-size: 0.9rem;">Your estimated monthly EMI</p>
+            </div>
+            
+            <div class="emi-amount">₹{{ "{:,.0f}".format((car.price * 1.08) / 60) }}</div>
+            <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 2rem;">Interest calculated at 8.5% for 60 months</p>
+            
+            <button class="btn" style="width: 100%; border: 1px solid var(--primary); color: #0f172a; background: var(--primary); padding: 1rem; border-radius: 12px; font-weight: 600; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s;" onclick="toggleEmiDetails()">View EMI Offers</button>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0;">*Ex-showroom price used for calculation.</p>
+            
+            <div id="emiDetails" style="display: none; margin-top: 1.5rem; border-top: 1px dashed #cbd5e1; padding-top: 1.5rem; animation: fadeInDown 0.3s ease;">
+                <h4 style="font-size: 1rem; color: #0f172a; margin-bottom: 1rem;">EMI Breakdown (8.5% Interest)</h4>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.95rem;">
+                    <span style="color: #64748b;">36 Months:</span>
+                    <strong style="color: #334155;">₹ {{ "{:,.0f}".format((car.price * 1.08) / 36) }} / mo</strong>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.95rem; background: rgba(165, 243, 252, 0.4); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--primary);">
+                    <span style="color: #0f172a; font-weight: 600;">60 Months (Recommended):</span>
+                    <strong style="color: #0f172a;">₹ {{ "{:,.0f}".format((car.price * 1.08) / 60) }} / mo</strong>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-size: 0.95rem;">
+                    <span style="color: #64748b;">72 Months:</span>
+                    <strong style="color: #334155;">₹ {{ "{:,.0f}".format((car.price * 1.08) / 72) }} / mo</strong>
+                </div>
+                
+                <p style="font-size: 0.8rem; color: #64748b; margin-top: 1.5rem; line-height: 1.5;">* Based on a 20% down payment. Final EMI may vary by lending partner.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NEW: Variants Section -->
+    <div class="variants-container glass-card" style="margin-top: 1rem;">
+        <h3 class="section-title">Available Variants</h3>
+        
+        <div class="variants-table-header">
+            <div style="flex: 2;">Variant</div>
+            <div style="flex: 1.5;">Ex-Showroom Price</div>
+            <div style="flex: 1; text-align: right;">Action</div>
+        </div>
+
+        {% if car.get('variants_text') and car.variants_text.strip() != '' %}
+            {% for line in car.variants_text.split('\n') if line.strip() %}
+                {% set parts = line.split('|') %}
+                {% if parts|length >= 4 %}
+        <div class="variant-row">
+            <div class="variant-info">
+                <div class="variant-name">{{ parts[0].strip() }}</div>
+                {% if parts[1].strip() %}<div class="variant-sub">{{ parts[1].strip() }}</div>{% endif %}
+                <div class="variant-specs">{{ parts[2].strip() }}</div>
+            </div>
+            <div class="variant-prices">
+                {% set variant_price = parts[3].replace(',', '').strip()|float %}
+                <div class="variant-price">₹{{ "{:,.2f}".format(variant_price / 100000) }} Lakh*</div>
+            </div>
+            <div class="variant-action">
+                <a href="{{ url_for('book_car', car_id=car.car_id) }}" class="btn-outline">Reserve</a>
+            </div>
+        </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <div class="variant-row">
+            <div class="variant-info">
+                <div class="variant-name">{{ car.name }} Base Option</div>
+                <div class="variant-sub">(Base Model)</div>
+                <div class="variant-specs">{{ (car.range_km / 7.5) | round | int }} kWh, {{ car.range_km }} km, {{ (car.price / 15000) | round | int }} bhp</div>
+            </div>
+            <div class="variant-prices">
+                <div class="variant-price">₹{{ "{:,.2f}".format(car.price / 100000) }} Lakh*</div>
+            </div>
+            <div class="variant-action">
+                <a href="{{ url_for('book_car', car_id=car.car_id) }}" class="btn-outline">Reserve</a>
+            </div>
+        </div>
+
+        <div class="variant-row">
+            <div class="variant-info">
+                <div class="variant-name">{{ car.name }} Standard Range</div>
+                <div class="variant-sub"></div>
+                <div class="variant-specs">{{ (car.range_km / 7.5 + 4) | round | int }} kWh, {{ car.range_km + 25 }} km, {{ (car.price / 14000) | round | int }} bhp</div>
+            </div>
+            <div class="variant-prices">
+                <div class="variant-price">₹{{ "{:,.2f}".format((car.price + 150000) / 100000) }} Lakh*</div>
+            </div>
+            <div class="variant-action">
+                <a href="{{ url_for('book_car', car_id=car.car_id) }}" class="btn-outline">Reserve</a>
+            </div>
+        </div>
+
+        <div class="variant-row">
+            <div class="variant-info">
+                <div class="variant-name">{{ car.name }} Extended Range</div>
+                <div class="variant-sub">(Premium Tech)</div>
+                <div class="variant-specs">{{ (car.range_km / 6.5) | round | int }} kWh, {{ car.range_km + 68 }} km, {{ (car.price / 13000) | round | int }} bhp</div>
+            </div>
+            <div class="variant-prices">
+                <div class="variant-price">₹{{ "{:,.2f}".format((car.price + 320000) / 100000) }} Lakh*</div>
+            </div>
+            <div class="variant-action">
+                <a href="{{ url_for('book_car', car_id=car.car_id) }}" class="btn-outline">Reserve</a>
+            </div>
+        </div>
+
+        <div class="variant-row">
+            <div class="variant-info">
+                <div class="variant-name">{{ car.name }} Top Spec AWD</div>
+                <div class="variant-sub">(Top Model)</div>
+                <div class="variant-specs">{{ (car.range_km / 6.5) | round | int }} kWh, {{ car.range_km + 68 }} km, {{ (car.price / 12000) | round | int }} bhp</div>
+            </div>
+            <div class="variant-prices">
+                <div class="variant-price">₹{{ "{:,.2f}".format((car.price + 510000) / 100000) }} Lakh*</div>
+            </div>
+            <div class="variant-action">
+                <a href="{{ url_for('book_car', car_id=car.car_id) }}" class="btn-outline">Reserve</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function toggleEmiDetails() {
+        const emiDiv = document.getElementById('emiDetails');
+        if (emiDiv.style.display === 'none') {
+            emiDiv.style.display = 'block';
+        } else {
+            emiDiv.style.display = 'none';
+        }
+    }
+    // Car Image Carousel Logic
+    const mainImageSrc = "{{ car.image_url }}";
+    
+    let galleryImages = [];
+    const extraImagesRaw = "{{ car.get('extra_images', '') }}";
+    
+    if (extraImagesRaw && extraImagesRaw.trim() !== "None" && extraImagesRaw.trim() !== "") {
+        const extraStrs = extraImagesRaw.split(',').map(s=>s.trim()).filter(s=>s);
+        galleryImages = [mainImageSrc, ...extraStrs];
+    } else {
+        // Mock additional views using generic EV placeholders for presentation
+        galleryImages = [
+            mainImageSrc,
+            "https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-4.0.3&auto=format&fit=crop&w=1051&q=80", // interior mock
+            "https://images.unsplash.com/photo-1620891549027-942fdc95d3f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80", // side/rear mock
+            "https://images.unsplash.com/photo-1619682817481-e994891cd1f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80"  // side mock
+        ];
+    }
+    let currentImgIndex = 0;
+    
+    function initCarousel() {
+        const indicators = document.getElementById('indicators');
+        if(indicators) {
+            galleryImages.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.classList.add('indicator');
+                if (idx === 0) dot.classList.add('active');
+                dot.onclick = () => showImage(idx);
+                indicators.appendChild(dot);
+            });
+        }
+    }
+    
+    function updateIndicators() {
+        const dots = document.querySelectorAll('.indicator');
+        dots.forEach((dot, idx) => {
+            if (idx === currentImgIndex) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
+    }
+
+    function changeImage(direction) {
+        currentImgIndex += direction;
+        if (currentImgIndex >= galleryImages.length) currentImgIndex = 0;
+        if (currentImgIndex < 0) currentImgIndex = galleryImages.length - 1;
+        showImage(currentImgIndex);
+    }
+    
+    function showImage(idx) {
+        currentImgIndex = idx;
+        const imgEl = document.getElementById('mainCarImage');
+        if(imgEl) {
+            imgEl.style.opacity = 0;
+            setTimeout(() => {
+                imgEl.src = galleryImages[idx];
+                imgEl.style.opacity = 1;
+            }, 150);
+        }
+        updateIndicators();
+    }
+    
+    // Make navbar blend with the bright background
+    document.addEventListener("DOMContentLoaded", () => {
+        initCarousel();
+        
+        const nav = document.querySelector('nav');
+        if (nav) {
+            nav.style.background = '#ffffff';
+            nav.style.borderBottom = '1px solid #e2e8f0';
+            nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.02)';
+            const logo = nav.querySelector('.logo');
+            if(logo) logo.style.color = 'var(--primary)';
+            const links = nav.querySelectorAll('.nav-links a');
+            links.forEach(l => l.style.color = '#1e293b');
+        }
+    });
+</script>
+{% endblock %}
