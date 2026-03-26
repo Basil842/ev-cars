@@ -1,0 +1,202 @@
+{
+    "users": [
+        {
+            "user_id": 1,
+            "name": "Basil Biju",
+            "email": "basilbiju3393@gmail.com",
+            "password": "123",
+            "created_at": "2026-03-26 09:51:59"
+        }
+    ],
+    "admin": [
+        {
+            "admin_id": 1,
+            "username": "admin",
+            "password": "admin123"
+        }
+    ],
+    "cars": [
+        {
+            "car_id": 1,
+            "name": "Nexon EV",
+            "brand": "Tata",
+            "price": 1474000.0,
+            "range_km": 465,
+            "image_url": "https://tse1.mm.bing.net/th/id/OIP.Q3Qk1Au6TSObLMLS5y4ZpgHaE8?pid=Api&P=0&h=180",
+            "description": "The Tata Nexon EV is a popular electric SUV in India developed by Tata Motors. It offers a stylish design, smooth performance, and an eco-friendly driving experience with zero emissions. The car is powered by a lithium-ion battery that delivers a driving range of about 325\u2013465 km on a single charge. It supports both fast charging and home charging, making it convenient for everyday use. Overall, the Nexon EV is a reliable and cost-effective choice for people looking to switch to electric vehicles.",
+            "battery_capacity": "",
+            "power_bhp": "",
+            "charging_dc": "",
+            "charging_ac": "",
+            "boot_space": "",
+            "safety_rating": "",
+            "extra_images": "https://www.carblogindia.com/wp-content/uploads/2019/12/Nexon-EV-interior.jpg,https://www.autobics.com/wp-content/uploads/2023/09/2023-Tata-Nexon-EV-Alloy-Wheel.jpg,https://tse2.mm.bing.net/th/id/OIP.0oaLWV18g20raVhN69WWXwHaEQ?pid=Api&P=0&h=180,https://imgd.aeplcdn.com/664x374/n/cw/ec/149123/nexon-ev-exterior-rear-view.jpeg?isig=0&q=80",
+            "variants_text": ""
+        },
+        {
+            "car_id": 2,
+            "name": "Ioniq 5",
+            "brand": "Hyundai",
+            "price": 4595000.0,
+            "range_km": 631,
+            "image_url": "https://cdni.autocarindia.com/ExtraImages/20230207113158_Hyundai_Ioniq_5_front.jpeg",
+            "description": "Next-gen electric SUV with retro styling."
+        },
+        {
+            "car_id": 3,
+            "name": "EV6",
+            "brand": "Kia",
+            "price": 6095000.0,
+            "range_km": 708,
+            "image_url": "https://www.kia.com/content/dam/kwcms/kme/global/en/assets/vehicles/ev6-gt/discover/kia-ev6-gt-my23-discover-keyvisual-w.jpg",
+            "description": "High-performance premium electric crossover."
+        },
+        {
+            "car_id": 4,
+            "name": "ZS EV",
+            "brand": "MG",
+            "price": 2288000.0,
+            "range_km": 461,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/109011/zs-ev-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80",
+            "description": "Premium electric SUV with advanced tech."
+        },
+        {
+            "car_id": 5,
+            "name": "Tiago EV",
+            "brand": "Tata",
+            "price": 869000.0,
+            "range_km": 315,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/131131/tiago-ev-exterior-right-front-three-quarter-3.jpeg?isig=0&q=80",
+            "description": "India's most accessible electric hatchback."
+        },
+        {
+            "car_id": 6,
+            "name": "XUV400",
+            "brand": "Mahindra",
+            "price": 1549000.0,
+            "range_km": 456,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/140591/xuv400-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80",
+            "description": "Spacious and powerful electric SUV."
+        },
+        {
+            "car_id": 7,
+            "name": "Punch EV",
+            "brand": "Tata",
+            "price": 1099000.0,
+            "range_km": 421,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/142865/punch-ev-exterior-right-front-three-quarter-4.jpeg?isig=0&q=80",
+            "description": "Feature-rich micro electric SUV."
+        },
+        {
+            "car_id": 8,
+            "name": "Comet EV",
+            "brand": "MG",
+            "price": 699000.0,
+            "range_km": 230,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/147321/comet-ev-exterior-right-front-three-quarter-5.jpeg?isig=0&q=80",
+            "description": "Compact and quirky urban electric vehicle."
+        },
+        {
+            "car_id": 9,
+            "name": "Atto 3",
+            "brand": "BYD",
+            "price": 3399000.0,
+            "range_km": 521,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/130541/atto-3-exterior-right-front-three-quarter-5.jpeg?isig=0&q=80",
+            "description": "Global premium electric SUV."
+        },
+        {
+            "car_id": 10,
+            "name": "eC3",
+            "brand": "Citroen",
+            "price": 1150000.0,
+            "range_km": 320,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/142515/ec3-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80",
+            "description": "Comfortable and practical electric hatchback."
+        }
+    ],
+    "upcoming_cars": [
+        {
+            "car_id": 101,
+            "name": "Harrier EV",
+            "brand": "Tata",
+            "expected_price": 3000000.0,
+            "expected_range_km": 500,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/139369/harrier-ev-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80",
+            "description": "Highly anticipated electric version of the Harrier SUV."
+        },
+        {
+            "car_id": 102,
+            "name": "Creta EV",
+            "brand": "Hyundai",
+            "expected_price": 2000000.0,
+            "expected_range_km": 450,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/cw/ec/41564/Hyundai-Creta-Right-Front-Three-Quarter-172584.jpg?wm=0&q=80",
+            "description": "Electric iteration of India's favorite compact SUV."
+        },
+        {
+            "car_id": 103,
+            "name": "eVX",
+            "brand": "Maruti Suzuki",
+            "expected_price": 2200000.0,
+            "expected_range_km": 550,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/139385/evx-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80",
+            "description": "Maruti's first electric SUV for the Indian market."
+        },
+        {
+            "car_id": 104,
+            "name": "BE.05",
+            "brand": "Mahindra",
+            "expected_price": 2400000.0,
+            "expected_range_km": 450,
+            "image_url": "https://imgd.aeplcdn.com/1056x594/n/cw/ec/129657/be-05-exterior-right-front-three-quarter-2.jpeg?isig=0&q=80",
+            "description": "Futuristic born-electric SUV from Mahindra."
+        }
+    ],
+    "bookings": [
+        {
+            "booking_id": 1,
+            "user_id": 1,
+            "car_id": 4,
+            "customer_name": "Basil Biju",
+            "customer_email": "basilbiju842@gmail.com",
+            "customer_phone": "6238755473",
+            "customer_address": "basioos",
+            "booking_date": "2026-03-26 09:52:40",
+            "status": "Cancelled"
+        },
+        {
+            "booking_id": 2,
+            "user_id": 1,
+            "car_id": 1,
+            "customer_name": "Basil Biju",
+            "customer_email": "dslkqa@gmail.com",
+            "customer_phone": "6238755473",
+            "customer_address": "777878",
+            "booking_date": "2026-03-26 09:56:39",
+            "status": "Pending"
+        },
+        {
+            "booking_id": 3,
+            "user_id": 1,
+            "car_id": 2,
+            "customer_name": "Basil Biju",
+            "customer_email": "basilbiju842@gmail.com",
+            "customer_phone": "6238755473",
+            "customer_address": "basil bfu9eo9o",
+            "booking_date": "2026-03-26 10:38:20",
+            "status": "Pending"
+        },
+        {
+            "booking_id": 4,
+            "user_id": 1,
+            "car_id": 2,
+            "customer_name": "Anandhu Suresh",
+            "customer_email": "sureshanandhu72@gmail.com",
+            "customer_phone": "7907821613",
+            "customer_address": "Krishnatheertham (H) Mulakulam P.O peruva, Kottayam",
+            "booking_date": "2026-03-26 14:29:48",
+            "status": "Pending"
+        }
+    ]
+}
